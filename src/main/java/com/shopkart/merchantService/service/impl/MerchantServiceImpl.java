@@ -71,4 +71,24 @@ public class MerchantServiceImpl implements MerchantService {
 
         return true;
     }
+
+    @Override
+    public Boolean updateMerchantSold(String merchantId, Long stock , String what) {
+        Merchant merchant = merchantRepository.findById(merchantId).get();
+        Long soldAlready = merchant.getProductsSold();
+//        System.out.println(stock);
+
+        if(what.equals("sold")){
+            soldAlready += stock;
+        }else if (what.equals("cancelled")){
+            soldAlready-= stock;
+        }else {
+            System.out.println("nothing");
+        }
+
+//        System.out.println(soldAlready);
+        merchant.setProductsSold(soldAlready);
+        merchantRepository.save(merchant);
+        return true;
+    }
 }

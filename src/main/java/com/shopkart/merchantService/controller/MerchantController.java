@@ -115,11 +115,15 @@ public class MerchantController {
         }
     }
 
-    @PostMapping("/{merchantId}/update-offerings")
-    public ResponseEntity<Boolean> updateOffering(@PathVariable() String merchantId, @RequestBody List<MerchantProductOffering> updateOfferingList){
+    @PutMapping("/{merchantId}/update-offerings")
+    public ResponseEntity<Boolean> updateOffering(@PathVariable String merchantId, @RequestBody List<MerchantProductOffering> updateOfferingList){
         return ResponseEntity.ok(merchantService.updateProductOffering(merchantId,updateOfferingList));
     }
 
-
+    @PutMapping("/{merchantId}/update-sold/{stock}/{what}")
+    public ResponseEntity<Boolean> updateProductsSold (@PathVariable String merchantId, @PathVariable Long stock , @PathVariable String what){
+        merchantService.updateMerchantSold(merchantId,stock,what);
+        return ResponseEntity.ok(Boolean.TRUE);
+    }
 
 }

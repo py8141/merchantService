@@ -13,6 +13,7 @@ public interface MerchantService {
     Float addMerchantRating(String merchantId ,Float rating);
     Float getMerchantRating (String merchantId);
     Boolean updateProductOffering(String merchantId , List<MerchantProductOffering> listProductOffering);
+    Boolean updateMerchantSold(String merchantId ,Long stock,String what);
 
 
 

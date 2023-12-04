@@ -3,6 +3,7 @@ package com.shopkart.merchantService.controller;
 
 import com.shopkart.merchantService.dto.MerchantDto;
 import com.shopkart.merchantService.entity.Merchant;
+import com.shopkart.merchantService.entity.MerchantProductOffering;
 import com.shopkart.merchantService.service.MerchantService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,11 @@ public class MerchantController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
+    }
+
+    @PostMapping("/{merchantId}/update-offerings")
+    public ResponseEntity<Boolean> updateOffering(@PathVariable() String merchantId, @RequestBody List<MerchantProductOffering> updateOfferingList){
+        return ResponseEntity.ok(merchantService.updateProductOffering(merchantId,updateOfferingList));
     }
 
 

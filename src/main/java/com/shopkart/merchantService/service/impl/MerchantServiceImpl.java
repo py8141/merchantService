@@ -1,11 +1,13 @@
 package com.shopkart.merchantService.service.impl;
 
 import com.shopkart.merchantService.entity.Merchant;
+import com.shopkart.merchantService.entity.MerchantProductOffering;
 import com.shopkart.merchantService.repository.MerchantRepository;
 import com.shopkart.merchantService.service.MerchantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,5 +51,24 @@ public class MerchantServiceImpl implements MerchantService {
     public Float getMerchantRating(String merchantId) {
         Merchant foundMerchant =  merchantRepository.findById(merchantId).get();
         return foundMerchant.getMerchantRating();
+    }
+
+    @Override
+    public Boolean updateProductOffering(String merchantId, List<MerchantProductOffering> listProductOffering) {
+        Merchant merchant = merchantRepository.findById(merchantId).get();
+        List<MerchantProductOffering> existingList = merchant.getListOfProductsByMerchants();
+        if(existingList.size() == 0){
+            merchant.setListOfProductsByMerchants(listProductOffering);
+            merchantRepository.save(merchant);
+        }else{
+            List<MerchantProductOffering> concatList = new ArrayList<>();
+            concatList.addAll(existingList);
+            concatList.addAll(listProductOffering);
+            merchant.setListOfProductsByMerchants(concatList);
+            merchantRepository.save(merchant);
+        }
+
+
+        return true;
     }
 }

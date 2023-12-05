@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 
 public class MerchantDto {
+    private String merchantId;
     private Long internalScore = new Long(0);
     private Float merchantRating ;
     private List<MerchantProductOffering> listOfProductsByMerchants = new ArrayList<>();
